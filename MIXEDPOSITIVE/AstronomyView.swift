@@ -27,18 +27,14 @@ struct AstronomyView: View {
 
                 GardeningView(element: viewModel.element, icon: viewModel.elementIcon)
                     .modifier(CardStyle())
+
+                NodeCardView(title: "Nœud ascendant", date: viewModel.ascendingNodeDate, icon: viewModel.ascendingNodeIcon, color: .teal)
+                    .modifier(CardStyle())
+
+                NodeCardView(title: "Nœud descendant", date: viewModel.descendingNodeDate, icon: viewModel.descendingNodeIcon, color: .pink)
+                    .modifier(CardStyle())
             }
             .padding()
-
-            // Nodes usually need more space or distinct layout
-            MoonNodeView(
-                ascendingDate: viewModel.ascendingNodeDate,
-                descendingDate: viewModel.descendingNodeDate
-            )
-            .padding()
-            .background(.regularMaterial)
-            .clipShape(.rect(cornerRadius: 12))
-            .padding(.horizontal)
         }
         .scrollIndicators(.hidden)
         .background(Color(UIColor.systemGroupedBackground)) // Use standard grouped background
@@ -71,7 +67,7 @@ private struct MoonPhaseView: View {
             Text(phase)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-            Text("\(fraction * 100, format: .number.precision(.fractionLength(0)))%")
+            Text(fraction * 100, format: .number.precision(.fractionLength(0))) + Text("%")
                 .font(.subheadline)
         }
     }
@@ -113,39 +109,23 @@ private struct MoonTrajectoryView: View {
     }
 }
 
-private struct MoonNodeView: View {
-    let ascendingDate: String
-    let descendingDate: String
+private struct NodeCardView: View {
+    let title: String
+    let date: String
+    let icon: String
+    let color: Color
 
     var body: some View {
-        VStack(spacing: 12) {
-            Text("Nœuds Lunaires")
-                .font(.title2)
-                .bold()
-
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "arrow.up.forward.circle")
-                    VStack(alignment: .leading) {
-                        Text("Nœud ascendant")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text(ascendingDate)
-                            .font(.body)
-                    }
-                }
-                Divider()
-                HStack {
-                    Image(systemName: "arrow.down.forward.circle")
-                    VStack(alignment: .leading) {
-                        Text("Nœud descendant")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Text(descendingDate)
-                            .font(.body)
-                    }
-                }
-            }
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.largeTitle)
+                .foregroundStyle(color)
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text(date)
+                .font(.headline)
+                .multilineTextAlignment(.center)
         }
     }
 }

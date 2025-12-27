@@ -19,6 +19,8 @@ class AstronomyViewModel {
     var moonTrendIcon: String = "arrow.up"
     var moonDirectionIcon: String = "arrow.up.right"
     var elementIcon: String = "leaf"
+    var ascendingNodeIcon: String = "arrow.up.forward.circle"
+    var descendingNodeIcon: String = "arrow.down.forward.circle"
 
     // Properties to hold state for calculation
     private let calendar = Calendar.current
@@ -123,7 +125,7 @@ class AstronomyViewModel {
         // Directives say "Prefer modern Foundation API".
         // We can use date.formatted() in Swift.
         let date = julianDay.date
-        return date.formatted(date: .complete, time: .standard)
+        return date.formatted(date: .abbreviated, time: .shortened)
     }
 
     private func getGardeningDay(phase: MoonPhase, sign: ZodiacSign) -> String {
