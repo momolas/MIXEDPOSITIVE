@@ -34,14 +34,8 @@ class AstronomyViewModel {
     private let locationManager = LocationManager()
     
     init() {
-        // Observe location changes? In pure Swift Observation, this is tricky if LocationManager is a separate object.
-        // We can just call calculateData when accessing or trigger updates.
-        // For simplicity, we'll start location updates and recalculate when location changes if possible.
-        // However, linking them in this structure without Combine is manual.
-        // Let's just request permission and use the location if available.
         locationManager.requestPermission()
         
-        // Recalculate when location updates
         locationManager.onLocationUpdate = { [weak self] in
             guard let self = self else { return }
             Task { @MainActor in
@@ -53,14 +47,9 @@ class AstronomyViewModel {
     }
     
     func scheduleNotifications() {
-        // To find the next full moon, we can iterate or use a known algorithm.
-        // A simple way is to check the phase for future dates.
-        // Or just schedule a generic notification for demonstration if SwiftAA's helper is missing.
-        // Let's iterate day by day until we hit a Full Moon phase.
-        
         var dateToCheck = Date()
         var daysChecked = 0
-        let maxDays = 40 // Lunar cycle is ~29.5 days
+        let maxDays = 40
         
         while daysChecked < maxDays {
             guard let nextDate = calendar.date(byAdding: .day, value: 1, to: dateToCheck) else { break }
@@ -73,7 +62,6 @@ class AstronomyViewModel {
             let phase = MoonPhase.fromDegree(phaseAngle)
             
             if phase == .fullMoon {
-                // Found it
                 NotificationManager.shared.scheduleFullMoonNotification(date: dateToCheck)
                 break
             }
@@ -120,48 +108,43 @@ class AstronomyViewModel {
         switch element {
         case "Jour racine": return "carrot"
         case "Jour feuille": return "leaf"
-        case "Jour fruit": return "apple.logo" // apple.logo might be technically "apple", but "cup.and.saucer" or something else might be better. There is no generic fruit icon in standard SF Symbols usually, maybe "apple.logo" is bad practice as it's a brand. Let's use "fork.knife" or "circle.fill". Wait, "carrot" exists? "leaf" exists.
-        // Checking SF Symbols... "carrot" exists in SF Symbols 4. "leaf" exists. "apple.logo" exists but is the Apple logo.
-        // For fruit, maybe "circle.hexagongrid.fill" (seeds)? Or just "leaf.arrow.circlepath"?
-        // Actually "drop.fill" for water (leaf?), "flame.fill" for fruit (fire/warmth)?
-        // Biodynamics elements: Root (Earth), Leaf (Water), Flower (Air), Fruit (Fire).
-        // Earth: "globe.europe.africa.fill" or "square.stack.3d.up.fill" (solid). Maybe "leaf" (root? no).
-        // Let's stick to simple ones.
-        // Racine -> "carrot" (if exists, checking context... carrot was added in SF Symbols 4? I think so). If not, "circle.circle".
-        // Fleur -> "camera.macro" (flower icon? No). "rosette"? "star"?
-        // Let's try to map best effort.
-        case "Jour fleur": return "camera.macro" // Resembles a flower
+        case "Jour fruit": return "fork.knife" // Represents eating fruit/vegetables
+        case "Jour fleur": return "camera.macro"
         default: return "leaf"
         }
     }
 
     private func getMoonPhase(julianDay: JulianDay) -> MoonPhase {
-        // Calcul de l'angle de phase de la lune à partir de la date julienne
         let moonPhaseAngle = moon.phaseAngle()
         return MoonPhase.fromDegree(moonPhaseAngle.value)
     }
     
     private func getMoonDirection(julianDay: JulianDay) -> String {
-        let ascendingNode = moon.passageThroughAscendingNode()
-        if jd < ascendingNode {
-            return "Descendante"
-        } else {
+        // Compare current ecliptic latitude with 1 hour ago
+        // Increasing -> Montante (Ascending)
+        // Decreasing -> Descendante (Descending)
+        let currentLat = moon.eclipticCoordinates.celestialLatitude.value
+
+        // 1 hour ago
+        let prevDate = Date().addingTimeInterval(-3600)
+        let prevMoon = Moon(julianDay: JulianDay(prevDate))
+        let prevLat = prevMoon.eclipticCoordinates.celestialLatitude.value
+
+        if currentLat > prevLat {
             return "Montante"
+        } else {
+            return "Descendante"
         }
     }
     
     private func getMoonTrend(julianDay: JulianDay) -> String {
-        let currentDate = Date()
-        // Force unwrap safe here as date calculation is standard
-        guard let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: currentDate) else {
-            return "Inconnu"
-        }
+        // Phase angle 0-180 is Waxing (Croissante)
+        // Phase angle 180-360 is Waning (Décroissante)
+        let phaseAngle = moon.phaseAngle().value
+        let normalized = phaseAngle.truncatingRemainder(dividingBy: 360)
+        let angle = normalized < 0 ? normalized + 360 : normalized
         
-        let currentPhase = moon.illuminatedFraction()
-        let previousMoon = Moon(julianDay: JulianDay(previousMonth))
-        let previousPhase = previousMoon.illuminatedFraction()
-        
-        if currentPhase > previousPhase {
+        if angle < 180 {
             return "Croissante"
         } else {
             return "Décroissante"
@@ -169,10 +152,6 @@ class AstronomyViewModel {
     }
     
     private func getDateString(_ julianDay: JulianDay) -> String {
-        // Using DateFormatter as originally, but could update to Text(format:) in View. 
-        // However, this returns a String for the VM.
-        // Directives say "Prefer modern Foundation API". 
-        // We can use date.formatted() in Swift.
         let date = julianDay.date
         return date.formatted(date: .abbreviated, time: .shortened)
     }
@@ -203,8 +182,6 @@ class AstronomyViewModel {
         let coords = GeographicCoordinates(positivelyWestwardLongitude: Degree(-longitude), latitude: Degree(latitude))
         let sun = Sun(julianDay: jd)
         
-        // RiseTransitSetTimes init signature check: (celestialBody: CelestialBody, geographicCoordinates: GeographicCoordinates)
-        // It uses the JD from the celestial body.
         let details = RiseTransitSetTimes(celestialBody: sun, geographicCoordinates: coords)
         
         if let rise = details.riseTime {
