@@ -89,8 +89,12 @@ class DayDetailViewModel {
     init(date: Date) {
         let jd = JulianDay(date)
         let moon = Moon(julianDay: jd)
+        let sun = Sun(julianDay: jd)
+        let moonLong = moon.eclipticCoordinates.celestialLongitude.value
+        let sunLong = sun.eclipticCoordinates.celestialLongitude.value
+        let rawElongation = moonLong - sunLong
+        let elongation = rawElongation < 0 ? rawElongation + 360 : rawElongation
         
-        let elongation = moon.elongation().value
         let phase = MoonPhase.fromDegree(elongation)
         self.moonPhase = phase.rawValue
         

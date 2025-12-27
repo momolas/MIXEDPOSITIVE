@@ -59,7 +59,15 @@ class AstronomyViewModel {
             
             let jd = JulianDay(dateToCheck)
             let moon = Moon(julianDay: jd)
-            let elongation = moon.elongation().value
+            let sun = Sun(julianDay: jd)
+
+            // Calculate elongation manually: Moon Longitude - Sun Longitude
+            let moonLong = moon.eclipticCoordinates.celestialLongitude.value
+            let sunLong = sun.eclipticCoordinates.celestialLongitude.value
+            let rawElongation = moonLong - sunLong
+            // Normalize to 0..<360
+            let elongation = rawElongation < 0 ? rawElongation + 360 : rawElongation
+
             let phase = MoonPhase.fromDegree(elongation)
             
             if phase == .fullMoon {
@@ -116,8 +124,12 @@ class AstronomyViewModel {
     }
 
     private func getMoonPhase(julianDay: JulianDay) -> MoonPhase {
-        let elongation = moon.elongation()
-        return MoonPhase.fromDegree(elongation.value)
+        let sun = Sun(julianDay: julianDay)
+        let moonLong = moon.eclipticCoordinates.celestialLongitude.value
+        let sunLong = sun.eclipticCoordinates.celestialLongitude.value
+        let rawElongation = moonLong - sunLong
+        let elongation = rawElongation < 0 ? rawElongation + 360 : rawElongation
+        return MoonPhase.fromDegree(elongation)
     }
     
     private func getMoonDirection(julianDay: JulianDay) -> String {
@@ -141,11 +153,13 @@ class AstronomyViewModel {
     private func getMoonTrend(julianDay: JulianDay) -> String {
         // Elongation 0-180 is Waxing (Croissante)
         // Elongation 180-360 is Waning (Décroissante)
-        let elongation = moon.elongation().value
-        let normalized = elongation.truncatingRemainder(dividingBy: 360)
-        let angle = normalized < 0 ? normalized + 360 : normalized
+        let sun = Sun(julianDay: julianDay)
+        let moonLong = moon.eclipticCoordinates.celestialLongitude.value
+        let sunLong = sun.eclipticCoordinates.celestialLongitude.value
+        let rawElongation = moonLong - sunLong
+        let elongation = rawElongation < 0 ? rawElongation + 360 : rawElongation
         
-        if angle < 180 {
+        if elongation < 180 {
             return "Croissante"
         } else {
             return "Décroissante"
