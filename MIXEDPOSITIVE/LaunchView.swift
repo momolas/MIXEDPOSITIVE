@@ -6,37 +6,44 @@
 //
 
 import SwiftUI
-import SwiftAA
 
 struct LaunchView: View {
-	var body: some View {
-		NavigationStack {
-			VStack {
-				
-				Spacer()
-				
-				Text("MIXEDPOSITIVE")
-					.font(.largeTitle)
-				
-				Text("Une application pour faire des calculs astronomiques")
-					.font(.caption)
-				
-				Spacer()
-				
-                NavigationLink(destination: ContentView(), label: { Image(systemName: "moon.stars")
-						.renderingMode(.original)
-						.resizable()
-						.aspectRatio(contentMode: .fit)
-						.foregroundColor(.green)
-						.frame(width: 200, height: 200)
-				})
-				
-				Spacer()
-				Spacer()
-			}
-			.navigationBarTitleDisplayMode(.inline)
-		}
-	}
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Spacer()
+
+                Text("MIXEDPOSITIVE")
+                    .font(.largeTitle)
+
+                Text("Une application pour faire des calculs astronomiques")
+                    .font(.caption)
+
+                Spacer()
+
+                NavigationLink(value: "Astronomy") {
+                    VStack {
+                        Image(systemName: "moon.stars")
+                            .renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundStyle(.green)
+                            .frame(width: 200, height: 200)
+                        Text("Commencer")
+                    }
+                }
+
+                Spacer()
+                Spacer()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: String.self) { value in
+                if value == "Astronomy" {
+                    AstronomyView()
+                }
+            }
+        }
+    }
 }
 
 #Preview {
