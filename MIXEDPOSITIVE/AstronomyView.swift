@@ -67,7 +67,7 @@ private struct MoonPhaseView: View {
             Text(phase)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-            Text(fraction * 100, format: .number.precision(.fractionLength(0))) + Text("%")
+            Text("\(fraction * 100, format: .number.precision(.fractionLength(0)))%")
                 .font(.subheadline)
         }
     }
