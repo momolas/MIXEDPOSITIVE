@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD5122A329DAB97D009D556A /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5122A229DAB97D009D556A /* SwiftUIView.swift */; };
+		CD5122A329DAB97D009D556A /* AstronomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5122A229DAB97D009D556A /* AstronomyView.swift */; };
+		CD1111111111111111110001 /* MoonPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110002 /* MoonPhase.swift */; };
+		CD1111111111111111110003 /* ZodiacSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110004 /* ZodiacSign.swift */; };
+		CD1111111111111111110005 /* AstronomyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110006 /* AstronomyViewModel.swift */; };
 		CD92235D27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */; };
 		CD92235F27BBB9C600E982D6 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD92235E27BBB9C600E982D6 /* LaunchView.swift */; };
 		CD92236127BBB9C800E982D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD92236027BBB9C800E982D6 /* Assets.xcassets */; };
@@ -16,7 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CD5122A229DAB97D009D556A /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		CD5122A229DAB97D009D556A /* AstronomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyView.swift; sourceTree = "<group>"; };
+		CD1111111111111111110002 /* MoonPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhase.swift; sourceTree = "<group>"; };
+		CD1111111111111111110004 /* ZodiacSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacSign.swift; sourceTree = "<group>"; };
+		CD1111111111111111110006 /* AstronomyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyViewModel.swift; sourceTree = "<group>"; };
 		CD92235927BBB9C600E982D6 /* MIXEDPOSITIVE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXEDPOSITIVE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIXEDPOSITIVEApp.swift; sourceTree = "<group>"; };
 		CD92235E27BBB9C600E982D6 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -54,12 +60,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CD1111111111111111110100 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CD1111111111111111110002 /* MoonPhase.swift */,
+				CD1111111111111111110004 /* ZodiacSign.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CD1111111111111111110200 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CD1111111111111111110006 /* AstronomyViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		CD92235B27BBB9C600E982D6 /* MIXEDPOSITIVE */ = {
 			isa = PBXGroup;
 			children = (
 				CDAC60F82A49B1BB00D52AF8 /* MIXEDPOSITIVE.entitlements */,
+				CD1111111111111111110100 /* Models */,
+				CD1111111111111111110200 /* ViewModels */,
 				CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */,
-				CD5122A229DAB97D009D556A /* SwiftUIView.swift */,
+				CD5122A229DAB97D009D556A /* AstronomyView.swift */,
 				CD92235E27BBB9C600E982D6 /* LaunchView.swift */,
 				CD92236027BBB9C800E982D6 /* Assets.xcassets */,
 				CD92236227BBB9C800E982D6 /* Preview Content */,
@@ -160,7 +185,10 @@
 			files = (
 				CD92235F27BBB9C600E982D6 /* LaunchView.swift in Sources */,
 				CD92235D27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift in Sources */,
-				CD5122A329DAB97D009D556A /* SwiftUIView.swift in Sources */,
+				CD5122A329DAB97D009D556A /* AstronomyView.swift in Sources */,
+				CD1111111111111111110001 /* MoonPhase.swift in Sources */,
+				CD1111111111111111110003 /* ZodiacSign.swift in Sources */,
+				CD1111111111111111110005 /* AstronomyViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -277,7 +305,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
