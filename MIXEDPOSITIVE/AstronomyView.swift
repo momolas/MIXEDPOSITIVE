@@ -40,7 +40,7 @@ private struct MoonPhaseView: View {
             Text("Phase de la lune")
                 .font(.largeTitle)
             Text(phase)
-            Text(fraction * 100, format: .number.precision(.fractionLength(0))) + Text("%")
+            Text("\(fraction * 100, format: .number.precision(.fractionLength(0)))%")
         }
     }
 }
