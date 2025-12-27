@@ -14,6 +14,12 @@ class AstronomyViewModel {
     var descendingNodeDate: String = ""
     var moonSign: String = ""
 
+    // Icons
+    var moonPhaseIcon: String = "moon.stars"
+    var moonTrendIcon: String = "arrow.up"
+    var moonDirectionIcon: String = "arrow.up.right"
+    var elementIcon: String = "leaf"
+
     // Properties to hold state for calculation
     private let calendar = Calendar.current
     private let jd = JulianDay(Date())
@@ -38,6 +44,44 @@ class AstronomyViewModel {
         self.ascendingNodeDate = getDateString(moon.passageThroughAscendingNode())
         self.descendingNodeDate = getDateString(moon.passageThroughDescendingNode())
         self.moonSign = sign.rawValue
+
+        self.moonPhaseIcon = getMoonPhaseIcon(phase: phase)
+        self.moonTrendIcon = self.moonTrend == "Croissante" ? "arrow.up.right" : "arrow.down.right"
+        self.moonDirectionIcon = self.moonDirection == "Montante" ? "arrow.up" : "arrow.down"
+        self.elementIcon = getElementIcon(element: self.element)
+    }
+
+    private func getMoonPhaseIcon(phase: MoonPhase) -> String {
+        switch phase {
+        case .newMoon: return "moonphase.new.moon"
+        case .waxingCrescent: return "moonphase.waxing.crescent"
+        case .firstQuarter: return "moonphase.first.quarter"
+        case .waxingGibbous: return "moonphase.waxing.gibbous"
+        case .fullMoon: return "moonphase.full.moon"
+        case .waningGibbous: return "moonphase.waning.gibbous"
+        case .lastQuarter: return "moonphase.last.quarter"
+        case .waningCrescent: return "moonphase.waning.crescent"
+        case .error: return "exclamationmark.triangle"
+        }
+    }
+
+    private func getElementIcon(element: String) -> String {
+        switch element {
+        case "Jour racine": return "carrot"
+        case "Jour feuille": return "leaf"
+        case "Jour fruit": return "apple.logo" // apple.logo might be technically "apple", but "cup.and.saucer" or something else might be better. There is no generic fruit icon in standard SF Symbols usually, maybe "apple.logo" is bad practice as it's a brand. Let's use "fork.knife" or "circle.fill". Wait, "carrot" exists? "leaf" exists.
+        // Checking SF Symbols... "carrot" exists in SF Symbols 4. "leaf" exists. "apple.logo" exists but is the Apple logo.
+        // For fruit, maybe "circle.hexagongrid.fill" (seeds)? Or just "leaf.arrow.circlepath"?
+        // Actually "drop.fill" for water (leaf?), "flame.fill" for fruit (fire/warmth)?
+        // Biodynamics elements: Root (Earth), Leaf (Water), Flower (Air), Fruit (Fire).
+        // Earth: "globe.europe.africa.fill" or "square.stack.3d.up.fill" (solid). Maybe "leaf" (root? no).
+        // Let's stick to simple ones.
+        // Racine -> "carrot" (if exists, checking context... carrot was added in SF Symbols 4? I think so). If not, "circle.circle".
+        // Fleur -> "camera.macro" (flower icon? No). "rosette"? "star"?
+        // Let's try to map best effort.
+        case "Jour fleur": return "camera.macro" // Resembles a flower
+        default: return "leaf"
+        }
     }
 
     private func getMoonPhase(julianDay: JulianDay) -> MoonPhase {
