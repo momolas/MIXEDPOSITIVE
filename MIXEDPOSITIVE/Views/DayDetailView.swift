@@ -77,6 +77,7 @@ struct DetailRow: View {
 }
 
 @Observable
+@MainActor
 class DayDetailViewModel {
     var moonPhase: String = ""
     var moonPhaseIcon: String = ""
@@ -116,7 +117,7 @@ class DayDetailViewModel {
         switch self.element {
         case "Jour racine": self.elementIcon = "carrot"
         case "Jour feuille": self.elementIcon = "leaf"
-        case "Jour fruit": self.elementIcon = "apple.logo"
+        case "Jour fruit": self.elementIcon = "fork.knife"
         case "Jour fleur": self.elementIcon = "camera.macro"
         default: self.elementIcon = "leaf"
         }
