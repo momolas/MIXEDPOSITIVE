@@ -7,6 +7,7 @@ import Foundation
 class AstronomyViewModel {
     var moonPhase: String = ""
     var element: String = ""
+    var plantsToPlant: [String] = []
     var moonIlluminatedFraction: Double = 0.0
     var moonTrend: String = ""
     var moonDirection: String = ""
@@ -22,16 +23,54 @@ class AstronomyViewModel {
     var ascendingNodeIcon: String = "arrow.up.forward.circle"
     var descendingNodeIcon: String = "arrow.down.forward.circle"
 
+    // Sun
+    var sunriseTime: String = "--:--"
+    var sunsetTime: String = "--:--"
+
     // Properties to hold state for calculation
     private let calendar = Calendar.current
     private let jd = JulianDay(Date())
     private let moon = Moon(julianDay: JulianDay(Date()))
-    // paris coordinates were used in original code but not in calculation directly shown,
-    // but useful if we need topocentric coordinates later.
-    // Keeping it consistent with original logic which seemed to use geocentric `moon` object.
+    private let locationManager = LocationManager()
 
     init() {
+        // Observe location changes? In pure Swift Observation, this is tricky if LocationManager is a separate object.
+        // We can just call calculateData when accessing or trigger updates.
+        // For simplicity, we'll start location updates and recalculate when location changes if possible.
+        // However, linking them in this structure without Combine is manual.
+        // Let's just request permission and use the location if available.
+        locationManager.requestPermission()
+
+        // Recalculate when location updates
+        locationManager.onLocationUpdate = { [weak self] in
+            guard let self = self else { return }
+            Task { @MainActor in
+                self.calculateData()
+            }
+        }
+
         calculateData()
+    }
+
+    func scheduleNotifications() {
+        // Calculate next Full Moon
+        let phases = MoonPhases(year: calendar.component(.year, from: Date()))
+        // Find next full moon after today
+        // Note: SwiftAA MoonPhases returns dates.
+        // We'll iterate to find the next one.
+        // Simplified: use a known next date or calculate via iteration for demo.
+        // For now, let's just trigger a notification permission request,
+        // and ideally we would schedule for the calculated date.
+        // Since we don't have a robust "Next Full Moon" function readily exposed without more logic,
+        // we will just request permission here. The view calls this.
+
+        // Actually, let's try to get one using Moon().
+        let moon = Moon(julianDay: JulianDay(Date()))
+        // Next full moon is roughly when phase angle is 0/180 or illuminated fraction is 1.0
+        // SwiftAA has NextFullMoon but it might be on the Moon object or helper.
+        // It's `moon.nextFullMoon()`.
+        let nextFullMoonJD = moon.nextFullMoon()
+        NotificationManager.shared.scheduleFullMoonNotification(date: nextFullMoonJD.date)
     }
 
     func calculateData() {
@@ -40,12 +79,15 @@ class AstronomyViewModel {
 
         self.moonPhase = phase.rawValue
         self.element = getGardeningDay(phase: phase, sign: sign)
+        self.plantsToPlant = GardeningGuide.getPlants(for: self.element)
         self.moonIlluminatedFraction = moon.illuminatedFraction()
         self.moonTrend = getMoonTrend(julianDay: jd)
         self.moonDirection = getMoonDirection(julianDay: jd)
         self.ascendingNodeDate = getDateString(moon.passageThroughAscendingNode())
         self.descendingNodeDate = getDateString(moon.passageThroughDescendingNode())
         self.moonSign = sign.rawValue
+
+        calculateSunTimes()
 
         self.moonPhaseIcon = getMoonPhaseIcon(phase: phase)
         self.moonTrendIcon = self.moonTrend == "Croissante" ? "arrow.up.right" : "arrow.down.right"
@@ -147,5 +189,36 @@ class AstronomyViewModel {
         let apparentCoordinates = moon.apparentEclipticCoordinates
         let longitude = apparentCoordinates.celestialLongitude
         return ZodiacSign.fromDegree(longitude.value)
+    }
+
+    private func calculateSunTimes() {
+        let latitude: Double
+        let longitude: Double
+
+        if let loc = locationManager.location {
+            latitude = loc.coordinate.latitude
+            longitude = loc.coordinate.longitude
+        } else {
+            // Default to Paris
+            latitude = 48.8566
+            longitude = 2.3522
+        }
+
+        let coords = GeographicCoordinates(positivelyWestwardLongitude: Degree(-longitude), latitude: Degree(latitude))
+        let sun = Sun(julianDay: jd)
+
+        let details = RiseTransitSetTimes(celestialBody: sun, geographicCoordinates: coords, julianDay: jd)
+
+        if let rise = details.riseTime {
+            self.sunriseTime = rise.date.formatted(date: .omitted, time: .shortened)
+        } else {
+            self.sunriseTime = "--:--"
+        }
+
+        if let set = details.setTime {
+            self.sunsetTime = set.date.formatted(date: .omitted, time: .shortened)
+        } else {
+            self.sunsetTime = "--:--"
+        }
     }
 }

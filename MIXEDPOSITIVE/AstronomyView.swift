@@ -12,6 +12,38 @@ struct AstronomyView: View {
 
     var body: some View {
         ScrollView {
+            HStack {
+                Button(action: {
+                    NotificationManager.shared.requestPermission { granted in
+                        if granted {
+                            // Schedule notifications via ViewModel logic
+                            // Since we are in the View, we can call the ViewModel method
+                            // Note: Button action closure is not @MainActor by default but typically runs on main thread in SwiftUI interactions.
+                            // We should dispatch to main if modifying state, but here we call a method.
+                            // Better yet, let's call viewModel.scheduleNotifications() which handles logic.
+                            Task { @MainActor in
+                                viewModel.scheduleNotifications()
+                            }
+                        }
+                    }
+                }) {
+                    Image(systemName: "bell.badge")
+                        .padding(8)
+                        .background(.regularMaterial)
+                        .clipShape(.circle)
+                }
+
+                Spacer()
+
+                NavigationLink(value: "Calendar") {
+                    Label("Calendrier", systemImage: "calendar")
+                        .padding(8)
+                        .background(.regularMaterial)
+                        .clipShape(.capsule)
+                }
+            }
+            .padding(.horizontal)
+
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 16)], spacing: 16) {
                 MoonPhaseView(phase: viewModel.moonPhase, fraction: viewModel.moonIlluminatedFraction, icon: viewModel.moonPhaseIcon)
                     .modifier(CardStyle())
@@ -25,8 +57,16 @@ struct AstronomyView: View {
                 MoonSignView(sign: viewModel.moonSign)
                     .modifier(CardStyle())
 
+                SunCardView(sunrise: viewModel.sunriseTime, sunset: viewModel.sunsetTime)
+                    .modifier(CardStyle())
+
                 GardeningView(element: viewModel.element, icon: viewModel.elementIcon)
                     .modifier(CardStyle())
+
+                if !viewModel.plantsToPlant.isEmpty {
+                    PlantGuideView(plants: viewModel.plantsToPlant)
+                        .modifier(CardStyle())
+                }
 
                 NodeCardView(title: "Nœud ascendant", date: viewModel.ascendingNodeDate, icon: viewModel.ascendingNodeIcon, color: .teal)
                     .modifier(CardStyle())
@@ -67,8 +107,57 @@ private struct MoonPhaseView: View {
             Text(phase)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-            Text("\(fraction * 100, format: .number.precision(.fractionLength(0)))%")
+            Text(fraction * 100, format: .number.precision(.fractionLength(0))) + Text("%")
                 .font(.subheadline)
+        }
+    }
+}
+
+private struct SunCardView: View {
+    let sunrise: String
+    let sunset: String
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "sun.max.fill")
+                .font(.largeTitle)
+                .foregroundStyle(.orange)
+            Text("Soleil")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            HStack(spacing: 12) {
+                VStack {
+                    Image(systemName: "sunrise")
+                        .font(.caption)
+                    Text(sunrise)
+                        .font(.subheadline)
+                }
+                VStack {
+                    Image(systemName: "sunset")
+                        .font(.caption)
+                    Text(sunset)
+                        .font(.subheadline)
+                }
+            }
+        }
+    }
+}
+
+private struct PlantGuideView: View {
+    let plants: [String]
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "basket.fill")
+                .font(.largeTitle)
+                .foregroundStyle(.green)
+            Text("À planter")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text(plants.joined(separator: ", "))
+                .font(.subheadline)
+                .multilineTextAlignment(.center)
         }
     }
 }

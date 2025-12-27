@@ -56,6 +56,8 @@ struct LaunchView: View {
             .navigationDestination(for: String.self) { value in
                 if value == "Astronomy" {
                     AstronomyView()
+                } else if value == "Calendar" {
+                    CalendarView()
                 }
             }
         }
