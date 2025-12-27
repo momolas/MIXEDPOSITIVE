@@ -12,14 +12,17 @@
 		CD1111111111111111110005 /* AstronomyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110006 /* AstronomyViewModel.swift */; };
 		CD1111111111111111110007 /* GardeningGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110008 /* GardeningGuide.swift */; };
 		CD1111111111111111110009 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110010 /* LocationManager.swift */; };
-		CD1111111111111111110011 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110012 /* CalendarView.swift */; };
+		CD1111111111111111110011 /* CalendarGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110012 /* CalendarGridView.swift */; };
 		CD1111111111111111110013 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110014 /* NotificationManager.swift */; };
-		CD5122A329DAB97D009D556A /* AstronomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5122A229DAB97D009D556A /* AstronomyView.swift */; };
+		CD1111111111111111110015 /* DayDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110016 /* DayDetailView.swift */; };
 		CD92235D27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */; };
-		CD92235F27BBB9C600E982D6 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD92235E27BBB9C600E982D6 /* LaunchView.swift */; };
 		CD92236127BBB9C800E982D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD92236027BBB9C800E982D6 /* Assets.xcassets */; };
 		CD92236427BBB9C800E982D6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD92236327BBB9C800E982D6 /* Preview Assets.xcassets */; };
 		CDA357372EBBD4800093499A /* SwiftAA in Frameworks */ = {isa = PBXBuildFile; productRef = CDA357362EBBD4800093499A /* SwiftAA */; };
+		CDC8D1322F004A3E0077BEE8 /* GardeningLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8D1312F004A3E0077BEE8 /* GardeningLogic.swift */; };
+		CDC8D1362F004A6B0077BEE8 /* AstronomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8D1332F004A6B0077BEE8 /* AstronomyView.swift */; };
+		CDC8D1372F004A6B0077BEE8 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8D1342F004A6B0077BEE8 /* CalendarView.swift */; };
+		CDC8D1382F004A6B0077BEE8 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC8D1352F004A6B0077BEE8 /* LaunchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,15 +31,18 @@
 		CD1111111111111111110006 /* AstronomyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyViewModel.swift; sourceTree = "<group>"; };
 		CD1111111111111111110008 /* GardeningGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardeningGuide.swift; sourceTree = "<group>"; };
 		CD1111111111111111110010 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		CD1111111111111111110012 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		CD1111111111111111110012 /* CalendarGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarGridView.swift; sourceTree = "<group>"; };
 		CD1111111111111111110014 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		CD5122A229DAB97D009D556A /* AstronomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyView.swift; sourceTree = "<group>"; };
+		CD1111111111111111110016 /* DayDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDetailView.swift; sourceTree = "<group>"; };
 		CD92235927BBB9C600E982D6 /* MIXEDPOSITIVE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXEDPOSITIVE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIXEDPOSITIVEApp.swift; sourceTree = "<group>"; };
-		CD92235E27BBB9C600E982D6 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		CD92236027BBB9C800E982D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD92236327BBB9C800E982D6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CDAC60F82A49B1BB00D52AF8 /* MIXEDPOSITIVE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MIXEDPOSITIVE.entitlements; sourceTree = "<group>"; };
+		CDC8D1312F004A3E0077BEE8 /* GardeningLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GardeningLogic.swift; sourceTree = "<group>"; };
+		CDC8D1332F004A6B0077BEE8 /* AstronomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyView.swift; sourceTree = "<group>"; };
+		CDC8D1342F004A6B0077BEE8 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		CDC8D1352F004A6B0077BEE8 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 		CD1111111111111111110100 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CDC8D1312F004A3E0077BEE8 /* GardeningLogic.swift */,
 				CD1111111111111111110002 /* MoonPhase.swift */,
 				CD1111111111111111110004 /* ZodiacSign.swift */,
 				CD1111111111111111110008 /* GardeningGuide.swift */,
@@ -76,6 +83,18 @@
 				CD1111111111111111110014 /* NotificationManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		CD1111111111111111110400 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CDC8D1332F004A6B0077BEE8 /* AstronomyView.swift */,
+				CDC8D1342F004A6B0077BEE8 /* CalendarView.swift */,
+				CDC8D1352F004A6B0077BEE8 /* LaunchView.swift */,
+				CD1111111111111111110012 /* CalendarGridView.swift */,
+				CD1111111111111111110016 /* DayDetailView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CD92235027BBB9C600E982D6 = {
@@ -102,8 +121,8 @@
 				CD1111111111111111110100 /* Models */,
 				CD1111111111111111110200 /* ViewModels */,
 				CD1111111111111111110300 /* Managers */,
+				CD1111111111111111110400 /* Views */,
 				CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */,
-				CDC8D1302F0042490077BEE8 /* Views */,
 				CD92236027BBB9C800E982D6 /* Assets.xcassets */,
 				CD92236227BBB9C800E982D6 /* Preview Content */,
 			);
@@ -123,16 +142,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CDC8D1302F0042490077BEE8 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				CD5122A229DAB97D009D556A /* AstronomyView.swift */,
-				CD1111111111111111110012 /* CalendarView.swift */,
-				CD92235E27BBB9C600E982D6 /* LaunchView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,7 +175,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 2610;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					CD92235827BBB9C600E982D6 = {
 						CreatedOnToolsVersion = 13.3;
@@ -211,16 +220,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD92235F27BBB9C600E982D6 /* LaunchView.swift in Sources */,
 				CD92235D27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift in Sources */,
-				CD5122A329DAB97D009D556A /* AstronomyView.swift in Sources */,
 				CD1111111111111111110001 /* MoonPhase.swift in Sources */,
 				CD1111111111111111110003 /* ZodiacSign.swift in Sources */,
 				CD1111111111111111110005 /* AstronomyViewModel.swift in Sources */,
 				CD1111111111111111110007 /* GardeningGuide.swift in Sources */,
+				CDC8D1362F004A6B0077BEE8 /* AstronomyView.swift in Sources */,
+				CDC8D1372F004A6B0077BEE8 /* CalendarView.swift in Sources */,
+				CDC8D1382F004A6B0077BEE8 /* LaunchView.swift in Sources */,
 				CD1111111111111111110009 /* LocationManager.swift in Sources */,
-				CD1111111111111111110011 /* CalendarView.swift in Sources */,
+				CD1111111111111111110011 /* CalendarGridView.swift in Sources */,
 				CD1111111111111111110013 /* NotificationManager.swift in Sources */,
+				CDC8D1322F004A3E0077BEE8 /* GardeningLogic.swift in Sources */,
+				CD1111111111111111110015 /* DayDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

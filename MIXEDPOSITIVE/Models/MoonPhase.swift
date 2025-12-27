@@ -10,7 +10,7 @@ enum MoonPhase: String, CaseIterable {
     case lastQuarter    = "Dernier quartier"
     case waningCrescent = "Dernier croissant"
     case error          = "Erreur lors du calcul de la phase lunaire"
-
+    
     static func fromDegree(_ ageOfTheMoonInDegrees: Double) -> MoonPhase {
         switch ageOfTheMoonInDegrees {
         case 0:

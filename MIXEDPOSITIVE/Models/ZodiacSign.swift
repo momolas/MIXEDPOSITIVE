@@ -13,7 +13,7 @@ enum ZodiacSign: String, CaseIterable {
     case capricorn = "Capricorne"
     case aquarius = "Verseau"
     case pisces = "Poissons"
-
+    
     static func fromDegree(_ degree: Double) -> ZodiacSign {
         let adjustedDegree = (degree < 0) ? degree + 360 : degree
         let signNumber = Int(floor(adjustedDegree / 30)) % 12

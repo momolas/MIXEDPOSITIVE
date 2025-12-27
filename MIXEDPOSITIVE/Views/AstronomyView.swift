@@ -9,18 +9,13 @@ import SwiftUI
 
 struct AstronomyView: View {
     @State private var viewModel = AstronomyViewModel()
-
+    
     var body: some View {
         ScrollView {
             HStack {
                 Button(action: {
                     NotificationManager.shared.requestPermission { granted in
                         if granted {
-                            // Schedule notifications via ViewModel logic
-                            // Since we are in the View, we can call the ViewModel method
-                            // Note: Button action closure is not @MainActor by default but typically runs on main thread in SwiftUI interactions.
-                            // We should dispatch to main if modifying state, but here we call a method.
-                            // Better yet, let's call viewModel.scheduleNotifications() which handles logic.
                             Task { @MainActor in
                                 viewModel.scheduleNotifications()
                             }
@@ -32,9 +27,9 @@ struct AstronomyView: View {
                         .background(.regularMaterial)
                         .clipShape(.circle)
                 }
-
+                
                 Spacer()
-
+                
                 NavigationLink(value: "Calendar") {
                     Label("Calendrier", systemImage: "calendar")
                         .padding(8)
@@ -43,34 +38,34 @@ struct AstronomyView: View {
                 }
             }
             .padding(.horizontal)
-
+            
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 16)], spacing: 16) {
                 MoonPhaseView(phase: viewModel.moonPhase, fraction: viewModel.moonIlluminatedFraction, icon: viewModel.moonPhaseIcon)
                     .modifier(CardStyle())
-
+                
                 MoonTrendView(trend: viewModel.moonTrend, icon: viewModel.moonTrendIcon)
                     .modifier(CardStyle())
-
+                
                 MoonTrajectoryView(direction: viewModel.moonDirection, icon: viewModel.moonDirectionIcon)
                     .modifier(CardStyle())
-
+                
                 MoonSignView(sign: viewModel.moonSign)
                     .modifier(CardStyle())
-
+                
                 SunCardView(sunrise: viewModel.sunriseTime, sunset: viewModel.sunsetTime)
                     .modifier(CardStyle())
-
+                
                 GardeningView(element: viewModel.element, icon: viewModel.elementIcon)
                     .modifier(CardStyle())
-
+                
                 if !viewModel.plantsToPlant.isEmpty {
                     PlantGuideView(plants: viewModel.plantsToPlant)
                         .modifier(CardStyle())
                 }
-
+                
                 NodeCardView(title: "Nœud ascendant", date: viewModel.ascendingNodeDate, icon: viewModel.ascendingNodeIcon, color: .teal)
                     .modifier(CardStyle())
-
+                
                 NodeCardView(title: "Nœud descendant", date: viewModel.descendingNodeDate, icon: viewModel.descendingNodeIcon, color: .pink)
                     .modifier(CardStyle())
             }
@@ -95,7 +90,7 @@ private struct MoonPhaseView: View {
     let phase: String
     let fraction: Double
     let icon: String
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
@@ -107,7 +102,7 @@ private struct MoonPhaseView: View {
             Text(phase)
                 .font(.headline)
                 .multilineTextAlignment(.center)
-            Text(fraction * 100, format: .number.precision(.fractionLength(0))) + Text("%")
+            Text("\(fraction * 100, format: .number.precision(.fractionLength(0)))%")
                 .font(.subheadline)
         }
     }
@@ -116,7 +111,7 @@ private struct MoonPhaseView: View {
 private struct SunCardView: View {
     let sunrise: String
     let sunset: String
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: "sun.max.fill")
@@ -125,7 +120,7 @@ private struct SunCardView: View {
             Text("Soleil")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-
+            
             HStack(spacing: 12) {
                 VStack {
                     Image(systemName: "sunrise")
@@ -146,7 +141,7 @@ private struct SunCardView: View {
 
 private struct PlantGuideView: View {
     let plants: [String]
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: "basket.fill")
@@ -165,7 +160,7 @@ private struct PlantGuideView: View {
 private struct MoonTrendView: View {
     let trend: String
     let icon: String
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
@@ -183,7 +178,7 @@ private struct MoonTrendView: View {
 private struct MoonTrajectoryView: View {
     let direction: String
     let icon: String
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
@@ -203,7 +198,7 @@ private struct NodeCardView: View {
     let date: String
     let icon: String
     let color: Color
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
@@ -221,7 +216,7 @@ private struct NodeCardView: View {
 
 private struct MoonSignView: View {
     let sign: String
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: "star.fill")
@@ -239,7 +234,7 @@ private struct MoonSignView: View {
 private struct GardeningView: View {
     let element: String
     let icon: String
-
+    
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
@@ -260,3 +255,4 @@ private struct GardeningView: View {
 		.environment(\.locale, Locale(identifier: "fr"))
 		.preferredColorScheme(.dark)
 }
+
