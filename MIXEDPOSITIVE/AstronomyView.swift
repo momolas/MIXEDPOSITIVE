@@ -12,7 +12,7 @@ struct AstronomyView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack {
                 MoonPhaseView(phase: viewModel.moonPhase, fraction: viewModel.moonIlluminatedFraction)
                 MoonTrendView(trend: viewModel.moonTrend)
                 MoonTrajectoryView(direction: viewModel.moonDirection)
@@ -74,7 +74,7 @@ private struct MoonNodeView: View {
     let descendingDate: String
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack {
             VStack {
                 Text("Nœud ascendant")
                     .font(.largeTitle)

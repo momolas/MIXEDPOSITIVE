@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftAA
 
 struct LaunchView: View {
     var body: some View {

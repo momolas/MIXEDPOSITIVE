@@ -1,4 +1,4 @@
-import SwiftUI
+import Observation
 import SwiftAA
 import Foundation
 
