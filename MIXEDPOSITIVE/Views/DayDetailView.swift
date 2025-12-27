@@ -77,6 +77,7 @@ struct DetailRow: View {
 }
 
 @Observable
+@MainActor
 class DayDetailViewModel {
     var moonPhase: String = ""
     var moonPhaseIcon: String = ""
@@ -89,8 +90,8 @@ class DayDetailViewModel {
         let jd = JulianDay(date)
         let moon = Moon(julianDay: jd)
         
-        let phaseAngle = moon.phaseAngle().value
-        let phase = MoonPhase.fromDegree(phaseAngle)
+        let elongation = moon.elongation().value
+        let phase = MoonPhase.fromDegree(elongation)
         self.moonPhase = phase.rawValue
         
         // Icon logic reused (should be shared ideally)
@@ -116,7 +117,7 @@ class DayDetailViewModel {
         switch self.element {
         case "Jour racine": self.elementIcon = "carrot"
         case "Jour feuille": self.elementIcon = "leaf"
-        case "Jour fruit": self.elementIcon = "apple.logo"
+        case "Jour fruit": self.elementIcon = "fork.knife"
         case "Jour fleur": self.elementIcon = "camera.macro"
         default: self.elementIcon = "leaf"
         }
