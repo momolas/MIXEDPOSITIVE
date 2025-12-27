@@ -3,6 +3,7 @@ import CoreLocation
 import Observation
 
 @Observable
+@MainActor
 class LocationManager: NSObject, CLLocationManagerDelegate {
     var location: CLLocation?
     var onLocationUpdate: (() -> Void)?
