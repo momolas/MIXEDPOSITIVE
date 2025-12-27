@@ -53,24 +53,31 @@ class AstronomyViewModel {
     }
 
     func scheduleNotifications() {
-        // Calculate next Full Moon
-        let phases = MoonPhases(year: calendar.component(.year, from: Date()))
-        // Find next full moon after today
-        // Note: SwiftAA MoonPhases returns dates.
-        // We'll iterate to find the next one.
-        // Simplified: use a known next date or calculate via iteration for demo.
-        // For now, let's just trigger a notification permission request,
-        // and ideally we would schedule for the calculated date.
-        // Since we don't have a robust "Next Full Moon" function readily exposed without more logic,
-        // we will just request permission here. The view calls this.
+        // To find the next full moon, we can iterate or use a known algorithm.
+        // A simple way is to check the phase for future dates.
+        // Or just schedule a generic notification for demonstration if SwiftAA's helper is missing.
+        // Let's iterate day by day until we hit a Full Moon phase.
 
-        // Actually, let's try to get one using Moon().
-        let moon = Moon(julianDay: JulianDay(Date()))
-        // Next full moon is roughly when phase angle is 0/180 or illuminated fraction is 1.0
-        // SwiftAA has NextFullMoon but it might be on the Moon object or helper.
-        // It's `moon.nextFullMoon()`.
-        let nextFullMoonJD = moon.nextFullMoon()
-        NotificationManager.shared.scheduleFullMoonNotification(date: nextFullMoonJD.date)
+        var dateToCheck = Date()
+        var daysChecked = 0
+        let maxDays = 40 // Lunar cycle is ~29.5 days
+
+        while daysChecked < maxDays {
+            guard let nextDate = calendar.date(byAdding: .day, value: 1, to: dateToCheck) else { break }
+            dateToCheck = nextDate
+            daysChecked += 1
+
+            let jd = JulianDay(dateToCheck)
+            let moon = Moon(julianDay: jd)
+            let phaseAngle = moon.phaseAngle().value
+            let phase = MoonPhase.fromDegree(phaseAngle)
+
+            if phase == .fullMoon {
+                // Found it
+                NotificationManager.shared.scheduleFullMoonNotification(date: dateToCheck)
+                break
+            }
+        }
     }
 
     func calculateData() {
@@ -207,16 +214,18 @@ class AstronomyViewModel {
         let coords = GeographicCoordinates(positivelyWestwardLongitude: Degree(-longitude), latitude: Degree(latitude))
         let sun = Sun(julianDay: jd)
 
-        let details = RiseTransitSetTimes(celestialBody: sun, geographicCoordinates: coords, julianDay: jd)
+        // RiseTransitSetTimes init signature check: (celestialBody: CelestialBody, geographicCoordinates: GeographicCoordinates)
+        // It uses the JD from the celestial body.
+        let details = RiseTransitSetTimes(celestialBody: sun, geographicCoordinates: coords)
 
         if let rise = details.riseTime {
-            self.sunriseTime = rise.date.formatted(date: .omitted, time: .shortened)
+            self.sunriseTime = rise.date.formatted(.dateTime.hour().minute())
         } else {
             self.sunriseTime = "--:--"
         }
 
         if let set = details.setTime {
-            self.sunsetTime = set.date.formatted(date: .omitted, time: .shortened)
+            self.sunsetTime = set.date.formatted(.dateTime.hour().minute())
         } else {
             self.sunsetTime = "--:--"
         }
