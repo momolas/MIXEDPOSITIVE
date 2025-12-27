@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD5122A329DAB97D009D556A /* AstronomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5122A229DAB97D009D556A /* AstronomyView.swift */; };
 		CD1111111111111111110001 /* MoonPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110002 /* MoonPhase.swift */; };
 		CD1111111111111111110003 /* ZodiacSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110004 /* ZodiacSign.swift */; };
 		CD1111111111111111110005 /* AstronomyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110006 /* AstronomyViewModel.swift */; };
@@ -15,6 +14,7 @@
 		CD1111111111111111110009 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110010 /* LocationManager.swift */; };
 		CD1111111111111111110011 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110012 /* CalendarView.swift */; };
 		CD1111111111111111110013 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1111111111111111110014 /* NotificationManager.swift */; };
+		CD5122A329DAB97D009D556A /* AstronomyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5122A229DAB97D009D556A /* AstronomyView.swift */; };
 		CD92235D27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */; };
 		CD92235F27BBB9C600E982D6 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD92235E27BBB9C600E982D6 /* LaunchView.swift */; };
 		CD92236127BBB9C800E982D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD92236027BBB9C800E982D6 /* Assets.xcassets */; };
@@ -23,7 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CD5122A229DAB97D009D556A /* AstronomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyView.swift; sourceTree = "<group>"; };
 		CD1111111111111111110002 /* MoonPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhase.swift; sourceTree = "<group>"; };
 		CD1111111111111111110004 /* ZodiacSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZodiacSign.swift; sourceTree = "<group>"; };
 		CD1111111111111111110006 /* AstronomyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyViewModel.swift; sourceTree = "<group>"; };
@@ -31,6 +30,7 @@
 		CD1111111111111111110010 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		CD1111111111111111110012 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CD1111111111111111110014 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		CD5122A229DAB97D009D556A /* AstronomyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstronomyView.swift; sourceTree = "<group>"; };
 		CD92235927BBB9C600E982D6 /* MIXEDPOSITIVE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MIXEDPOSITIVE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIXEDPOSITIVEApp.swift; sourceTree = "<group>"; };
 		CD92235E27BBB9C600E982D6 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -51,23 +51,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		CD92235027BBB9C600E982D6 = {
-			isa = PBXGroup;
-			children = (
-				CD92235B27BBB9C600E982D6 /* MIXEDPOSITIVE */,
-				CDA357222EBBD1B40093499A /* Frameworks */,
-				CD92235A27BBB9C600E982D6 /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		CD92235A27BBB9C600E982D6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CD92235927BBB9C600E982D6 /* MIXEDPOSITIVE.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		CD1111111111111111110100 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +78,23 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		CD92235027BBB9C600E982D6 = {
+			isa = PBXGroup;
+			children = (
+				CD92235B27BBB9C600E982D6 /* MIXEDPOSITIVE */,
+				CDA357222EBBD1B40093499A /* Frameworks */,
+				CD92235A27BBB9C600E982D6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD92235A27BBB9C600E982D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD92235927BBB9C600E982D6 /* MIXEDPOSITIVE.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CD92235B27BBB9C600E982D6 /* MIXEDPOSITIVE */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,9 +103,7 @@
 				CD1111111111111111110200 /* ViewModels */,
 				CD1111111111111111110300 /* Managers */,
 				CD92235C27BBB9C600E982D6 /* MIXEDPOSITIVEApp.swift */,
-				CD5122A229DAB97D009D556A /* AstronomyView.swift */,
-				CD1111111111111111110012 /* CalendarView.swift */,
-				CD92235E27BBB9C600E982D6 /* LaunchView.swift */,
+				CDC8D1302F0042490077BEE8 /* Views */,
 				CD92236027BBB9C800E982D6 /* Assets.xcassets */,
 				CD92236227BBB9C800E982D6 /* Preview Content */,
 			);
@@ -125,6 +123,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDC8D1302F0042490077BEE8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD5122A229DAB97D009D556A /* AstronomyView.swift */,
+				CD1111111111111111110012 /* CalendarView.swift */,
+				CD92235E27BBB9C600E982D6 /* LaunchView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,10 +361,10 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Nous utilisons votre position pour calculer les heures de lever et coucher du soleil avec précision.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Nous utilisons votre position pour calculer les heures de lever et coucher du soleil avec précision.";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
