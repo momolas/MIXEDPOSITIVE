@@ -31,9 +31,10 @@ class AstronomyViewModel {
     private let calendar = Calendar.current
     private let jd = JulianDay(Date())
     private let moon = Moon(julianDay: JulianDay(Date()))
-    private let locationManager = LocationManager()
+    private let locationManager: LocationManager
     
     init() {
+        self.locationManager = LocationManager()
         locationManager.requestPermission()
         
         locationManager.onLocationUpdate = { [weak self] in
@@ -58,8 +59,8 @@ class AstronomyViewModel {
             
             let jd = JulianDay(dateToCheck)
             let moon = Moon(julianDay: jd)
-            let phaseAngle = moon.phaseAngle().value
-            let phase = MoonPhase.fromDegree(phaseAngle)
+            let elongation = moon.elongation().value
+            let phase = MoonPhase.fromDegree(elongation)
             
             if phase == .fullMoon {
                 NotificationManager.shared.scheduleFullMoonNotification(date: dateToCheck)
@@ -115,8 +116,8 @@ class AstronomyViewModel {
     }
 
     private func getMoonPhase(julianDay: JulianDay) -> MoonPhase {
-        let moonPhaseAngle = moon.phaseAngle()
-        return MoonPhase.fromDegree(moonPhaseAngle.value)
+        let elongation = moon.elongation()
+        return MoonPhase.fromDegree(elongation.value)
     }
     
     private func getMoonDirection(julianDay: JulianDay) -> String {
@@ -138,10 +139,10 @@ class AstronomyViewModel {
     }
     
     private func getMoonTrend(julianDay: JulianDay) -> String {
-        // Phase angle 0-180 is Waxing (Croissante)
-        // Phase angle 180-360 is Waning (Décroissante)
-        let phaseAngle = moon.phaseAngle().value
-        let normalized = phaseAngle.truncatingRemainder(dividingBy: 360)
+        // Elongation 0-180 is Waxing (Croissante)
+        // Elongation 180-360 is Waning (Décroissante)
+        let elongation = moon.elongation().value
+        let normalized = elongation.truncatingRemainder(dividingBy: 360)
         let angle = normalized < 0 ? normalized + 360 : normalized
         
         if angle < 180 {

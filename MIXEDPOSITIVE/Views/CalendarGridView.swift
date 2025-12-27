@@ -93,7 +93,7 @@ struct MoonIcon: View {
     
     var iconName: String {
         let moon = Moon(julianDay: JulianDay(date))
-        let phase = MoonPhase.fromDegree(moon.phaseAngle().value)
+        let phase = MoonPhase.fromDegree(moon.elongation().value)
         switch phase {
         case .newMoon: return "moonphase.new.moon"
         case .waxingCrescent: return "moonphase.waxing.crescent"

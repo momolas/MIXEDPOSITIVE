@@ -90,8 +90,8 @@ class DayDetailViewModel {
         let jd = JulianDay(date)
         let moon = Moon(julianDay: jd)
         
-        let phaseAngle = moon.phaseAngle().value
-        let phase = MoonPhase.fromDegree(phaseAngle)
+        let elongation = moon.elongation().value
+        let phase = MoonPhase.fromDegree(elongation)
         self.moonPhase = phase.rawValue
         
         // Icon logic reused (should be shared ideally)
