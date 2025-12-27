@@ -29,7 +29,6 @@ struct LaunchView: View {
                             .aspectRatio(contentMode: .fit)
                             .foregroundStyle(.green)
                             .frame(width: 200, height: 200)
-                        Text("Commencer")
                     }
                 }
 
