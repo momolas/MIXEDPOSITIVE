@@ -123,12 +123,12 @@ class AstronomyViewModel {
         // Compare current ecliptic latitude with 1 hour ago
         // Increasing -> Montante (Ascending)
         // Decreasing -> Descendante (Descending)
-        let currentLat = moon.eclipticCoordinates.latitude.value
+        let currentLat = moon.eclipticCoordinates.celestialLatitude.value
 
         // 1 hour ago
         let prevDate = Date().addingTimeInterval(-3600)
         let prevMoon = Moon(julianDay: JulianDay(prevDate))
-        let prevLat = prevMoon.eclipticCoordinates.latitude.value
+        let prevLat = prevMoon.eclipticCoordinates.celestialLatitude.value
 
         if currentLat > prevLat {
             return "Montante"
